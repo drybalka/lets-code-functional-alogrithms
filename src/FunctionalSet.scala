@@ -1,3 +1,5 @@
+/* Write 2 implementations of the following interface, that model a mathematical set of integers. */
+
 trait FunctionalSet:
 
   /* Adds element if it is not present and returns the new set */

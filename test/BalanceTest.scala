@@ -1,6 +1,9 @@
 def testBalanceWith(isBalanced: String => Boolean, suite: munit.FunSuite)(using
     loc: munit.Location
 ): Unit =
+  suite.test("empty"):
+    suite.assert(isBalanced(""), "empty string is balanced")
+
   suite.test("balanced"):
     suite.assert(isBalanced("()(()())"), "'()(()())' is balanced")
 
