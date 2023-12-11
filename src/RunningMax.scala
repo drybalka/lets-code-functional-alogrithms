@@ -19,11 +19,10 @@ object RunningMax:
     do output(i) = output(i - 1) max input(i)
     output.toVector
 
-  /* Use functional methods to produce the output. */
+  /* Use functional methods to produce the output.
+   * Can you make it a one-liner? */
   def runningMax_functional(input: Vector[Int]): Vector[Int] =
-    input.tail.foldLeft(Vector(input.head)) { (output, elem) =>
-      output :+ (elem max output.last)
-    }
+    input.scanLeft(input.head)(_ max _).tail
 
   /* The principle of this parallel algorithm is the similar as for other problems:
    * it also involves recursive splitting of input until some threshold,
@@ -53,7 +52,7 @@ object RunningMax:
       val maxElem = content.max
 
     def buildTree(input: Vector[Int]): Future[Tree] =
-      if input.length < threshold then Future { Leaf(input) }
+      if input.length < threshold then Future.successful(Leaf(input))
       else
         val (left, right) = input.splitAt(input.length / 2)
         for
@@ -69,7 +68,8 @@ object RunningMax:
     def convertTree(tree: Tree, previousMax: Int): Future[Vector[Int]] =
       tree match
         case Leaf(content) =>
-          Future { runningMax(content, previousMax) }
+          val output = runningMax(content, previousMax)
+          Future.successful(output)
         case Node(left, right) =>
           for
             leftVec <- convertTree(left, previousMax)

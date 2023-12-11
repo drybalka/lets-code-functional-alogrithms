@@ -48,15 +48,15 @@ object Balance:
 
     def calcMinAndDeltaDepth(brackets: String): Future[(Int, Int)] =
       if brackets.length < threshold then
-        Future {
-          brackets.foldLeft((0, 0)) { (minAndDeltaDepth, char) =>
+        val minAndDeltaDepth = brackets.foldLeft((0, 0)) {
+          (minAndDeltaDepth, char) =>
             val (minDepth, deltaDepth) = minAndDeltaDepth
             char match
               case '(' => (minDepth, deltaDepth + 1)
               case ')' => (minDepth min deltaDepth - 1, deltaDepth - 1)
               case _   => (minDepth, deltaDepth)
-          }
         }
+        Future.successful(minAndDeltaDepth)
       else
         val (leftHalf, rightHalf) = brackets.splitAt(brackets.length / 2)
         for

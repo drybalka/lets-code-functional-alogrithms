@@ -53,9 +53,8 @@ object CountChange:
 
     def calcWays(money: Int, coins: List[Int]): Future[Int] =
       if money < threshold || coins.isEmpty then
-        Future {
-          countChange_functional(money, coins)
-        }
+        val ways = countChange_functional(money, coins)
+        Future.successful(ways)
       else
         for
           waysWithNoCoin <- calcWays(money, coins.tail)
