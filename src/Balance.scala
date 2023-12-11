@@ -38,7 +38,7 @@ object Balance:
 
     isBalanced(brackets.toList, 0)
 
-  /* The parallel algorithm is recursive and consists of 2 stages.
+  /* You may try the general parallel algorithm described in the readme.
    * If the given string is longer than some threshold then split it in 2,
    * process the halves in parallel and then reduce the 2 outputs into one.
    * In the opposite case the overhead of spawning new threads is not worth it

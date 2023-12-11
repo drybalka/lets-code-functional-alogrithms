@@ -40,7 +40,7 @@ object CountChange:
           countChange_functional(money, coins.tail) +
             countChange_functional(money - coins.head, coins)
 
-  /* The parallel algorithm is recursive and consists of 2 stages.
+  /* You may try the general parallel algorithm described in the readme.
    * If the expected sequential calculation for the given arguments is long then split the problem in 2,
    * process the halves in parallel and finally reduce the 2 results into one.
    * In the opposite case the overhead of spawning new threads for the parallel calculation

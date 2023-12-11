@@ -24,7 +24,7 @@ object RunningMax:
   def runningMax_functional(input: Vector[Int]): Vector[Int] =
     input.scanLeft(input.head)(_ max _).tail
 
-  /* The principle of this parallel algorithm is the similar as for other problems:
+  /* The principle of this parallel algorithm is similar to the general scheme:
    * it also involves recursive splitting of input until some threshold,
    * some sequential computations, and combining of results.
    *
